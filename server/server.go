@@ -9,6 +9,11 @@ var engine = gin.New()
 // init auto middleware
 func init() {
 	engine.Use(server)
+	engine.GET("remoteip", remoteIP)
+}
+
+func remoteIP(c *gin.Context) {
+	c.JSON(200, gin.H{"RemoteIP": RemoteIP(c.Request)})
 }
 
 // New server engine is gin
