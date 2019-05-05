@@ -8,6 +8,6 @@ import (
 
 // Route Settings
 func Route(r *gin.RouterGroup) {
-	r.GET("home", carousel.Carousel)
-	r.GET("list/:class", list.List)
+	r.GET("carousel", carousel.GetCarousel)
+	r.GET("list", list.List)
 }
