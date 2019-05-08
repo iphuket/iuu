@@ -3,7 +3,6 @@ package model
 import (
 	"github.com/jinzhu/gorm"
 
-	"github.com/iphuket/iuu/library/sqlite3"
 )
 
 // Carousel sql data struct
@@ -58,21 +57,12 @@ type Case struct {
 }
 
 func db() (*gorm.DB, error) {
-	db, err := sqlite3.New()
-	if err != nil {
-		return nil, err
-	}
-	return db, nil
+	return nil,nil
 }
 
 // GetCase ...
 func GetCase(UserUUID string) (*Case, error) {
-	_, err := sqlite3.New()
-	if err != nil {
-		return nil, err
-	}
-	//db.Where("", &Case)
-	return nil, nil
+	return nil,nil
 }
 
 // GetClass ...

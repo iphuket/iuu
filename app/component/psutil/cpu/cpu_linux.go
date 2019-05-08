@@ -2,7 +2,7 @@ package cpu
 
 import (
 	"fmt"
-
+	"time"
 	"github.com/gin-gonic/gin"
 
 	"github.com/shirou/gopsutil/cpu"
@@ -10,29 +10,11 @@ import (
 
 // Info ...cpu info json
 func Info(c *gin.Context) {
-
-	ci, err := cpu.Info()
-	if err != nil {
-		c.JSON(404, gin.H{"errInfo": fmt.Sprint(err)})
-		c.Abort()
+	cp, err :=cpu.Percent(time.Duration(1/1000)*time.Second,true)
+	if err !=nil {
+		c.JSON(c.Writer.Status(), gin.H{"err": fmt.Sprint(err)})
 	}
-	c.JSON(200, ci[0].String())
-	/*
-		cu, err := cpu.ProcInfo()
-		if err != nil {
-			c.JSON(404, gin.H{"errInfo": fmt.Sprint(err)})
-			c.Abort()
-		}
-
-		cpc, err := cpu.Percent(time.Second, true)
-		if err != nil {
-			c.JSON(404, gin.H{"errInfo": fmt.Sprint(err)})
-			c.Abort()
-		}
-		fmt.Println("cu", len(cu))
-
-		c.JSON(200, gin.H{"Cores": ci[0].Cores, "Ghz": ci[0].Mhz / 1000, "ModeName": ci[0].ModelName, "Processes": cu[0].Processes, "Percent": cpc})
-	*/
+	c.JSON(c.Writer.Status(), cp)
 }
 
 // Usage for cpu messages

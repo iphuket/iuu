@@ -1,13 +1,13 @@
 package carousel
 
 import (
+	"github.com/iphuket/iuu/app/config"
 	"fmt"
 
 	"github.com/google/uuid"
 
 	"github.com/gin-gonic/gin"
 	"github.com/iphuket/iuu/app/component/article/model"
-	"github.com/iphuket/iuu/library/sqlite3"
 )
 
 // Carousel page data
@@ -27,7 +27,7 @@ func Carousel(c *gin.Context) {
 
 func get(ClassUUID, CaseUUID string) (*model.Carousel, error) {
 	carousel := new(model.Carousel)
-	db, err := sqlite3.New()
+	db, err := config.DB("mysql")
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +37,7 @@ func get(ClassUUID, CaseUUID string) (*model.Carousel, error) {
 
 func put(c *gin.Context) {
 	var carousel model.Carousel
-	db, err := sqlite3.New()
+	db, err := config.DB("mysql")
 	if err != nil {
 		c.JSON(c.Writer.Status(), gin.H{"errCode": "", "errInfo": fmt.Sprint("数据库初始化失败", err)})
 		return
@@ -49,10 +49,10 @@ func put(c *gin.Context) {
 	db.Create(&carousel)
 }
 
-// DeleteCarousel page data
-func DeleteCarousel(c *gin.Context) {
+// Delete page data
+func Delete(c *gin.Context) {
 	// var carousel model.Carousel
-	db, err := sqlite3.New()
+	db, err := config.DB("mysql")
 	if err != nil {
 		c.JSON(c.Writer.Status(), gin.H{"errCode": "", "errInfo": fmt.Sprint("数据库初始化失败", err)})
 		return

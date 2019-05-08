@@ -1,7 +1,6 @@
 package sqlite3
 
 import (
-	"github.com/iphuket/iuu/app/config"
 	"github.com/jinzhu/gorm"
 
 	// sqlite 3
@@ -10,8 +9,8 @@ import (
 )
 
 // New sql
-func New() (*gorm.DB, error) {
-	db, err := gorm.Open("sqlite3", config.Sqlite3DBFilePath)
+func New(path string) (*gorm.DB, error) {
+	db, err := gorm.Open("sqlite3", path)
 	defer db.Close()
 	return db, err
 }

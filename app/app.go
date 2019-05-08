@@ -5,7 +5,7 @@ import (
 )
 
 // Run app
-func Run() {
+func Run(port string) {
 	http.Route()
-	http.Run(":80")
+	http.Run(port)
 }

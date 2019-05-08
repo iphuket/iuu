@@ -5,11 +5,15 @@ import (
 	"testing"
 )
 
-func TestGetCarousel(T *testing.T) {
+func TestGet(T *testing.T) {
 	c, err := get("sss", "sss")
 	if err != nil {
 		fmt.Println("error ", err)
 		return
 	}
-	fmt.Println("success ", c)
+	if c.UUID == "" {
+		fmt.Println("no data ")
+		return
+	}
+	fmt.Println("success ", c.UUID)
 }

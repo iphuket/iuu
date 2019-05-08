@@ -1,0 +1,11 @@
+nohup: 忽略输入
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /remoteip                 --> github.com/iphuket/iuu/server.remoteIP (2 handlers)
+[GIN-debug] GET    /psutil/cpu/info          --> github.com/iphuket/iuu/app/component/psutil/cpu.Info (2 handlers)
+[GIN-debug] GET    /psutil/cpu/usage         --> github.com/iphuket/iuu/app/component/psutil/cpu.Usage (2 handlers)
+[GIN-debug] GET    /article/carousel         --> github.com/iphuket/iuu/app/component/article/carousel.Carousel (2 handlers)
+[GIN-debug] GET    /article/list             --> github.com/iphuket/iuu/app/component/article/list.List (2 handlers)
+[GIN-debug] Listening and serving HTTP on :8866
