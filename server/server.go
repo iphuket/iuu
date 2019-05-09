@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var engine = gin.New()
+var engine = gin.Default()
 
 // init auto middleware
 func init() {

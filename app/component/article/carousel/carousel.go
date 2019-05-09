@@ -1,8 +1,13 @@
+// Package carousel ...
+// 这个包用于处理幻灯片相关
+// 技术能力不足，复制话了此包
+// 先用再说
 package carousel
 
 import (
-	"github.com/iphuket/iuu/app/config"
 	"fmt"
+
+	"github.com/iphuket/iuu/app/config"
 
 	"github.com/google/uuid"
 
@@ -14,49 +19,92 @@ import (
 func Carousel(c *gin.Context) {
 	switch c.Request.Method {
 	case "GET":
-		carousel, err := get(c.Request.FormValue("class_uuid"), c.Request.FormValue("case_uuid"))
+		car, err := get(c.Request.FormValue("class_uuid"), c.Request.FormValue("case_uuid"))
 		if err != nil {
-			c.JSON(c.Writer.Status(), gin.H{"errCode": "", "errInfo": fmt.Sprint("数据库初始化失败", err)})
+			errorHandle(c, "error", fmt.Sprint(err))
 			return
 		}
-		c.JSON(c.Writer.Status(), carousel)
-	case "PUT":
-		
+		successHandle(c, car)
+
+	case "POST":
+		do := c.Request.FormValue("do")
+		switch do {
+		case "UPDATE":
+			car := &model.Carousel{UserUUID: "aimo", CaseUUID: c.Request.FormValue("case_uuid"), ClassUUID: c.Request.FormValue("class_uuid"), Name: c.Request.FormValue("name"), Desc: c.Request.FormValue("desc"), Source: c.Request.FormValue("source"), Picture: c.Request.FormValue("picture")}
+			err := update(c.Request.FormValue("uuid"), car)
+			if err != nil {
+				errorHandle(c, "error", fmt.Sprint(err))
+				return
+			}
+			successHandle(c)
+		case "CREATE":
+			car := &model.Carousel{UUID: uuid.New().String(), UserUUID: "aimo", CaseUUID: c.Request.FormValue("case_uuid"), ClassUUID: c.Request.FormValue("class_uuid"), Name: c.Request.FormValue("name"), Desc: c.Request.FormValue("desc"), Source: c.Request.FormValue("source"), Picture: c.Request.FormValue("picture")}
+			car, err := put(car)
+			if err != nil {
+				errorHandle(c, "error", fmt.Sprint(err))
+				return
+			}
+			successHandle(c, car)
+		case "DELETE":
+			err := delete(c.Request.FormValue("uuid"))
+			if err != nil {
+				errorHandle(c, "error", fmt.Sprint(err))
+				return
+			}
+			successHandle(c)
+		default:
+			errorHandle(c, "error", "not find")
+		}
 	}
+
 }
 
-func get(ClassUUID, CaseUUID string) (*model.Carousel, error) {
-	carousel := new(model.Carousel)
+func get(ClassUUID, CaseUUID string) (*[]model.Carousel, error) {
+	var carousel []model.Carousel
 	db, err := config.DB("mysql")
 	if err != nil {
 		return nil, err
 	}
-	db.Where(gin.H{"class_uuid": ClassUUID, "case_uuid": CaseUUID}).Find(&carousel)
-	return carousel, nil
+
+	err = db.Where(&model.Carousel{ClassUUID: ClassUUID, CaseUUID: CaseUUID}).Find(&carousel).Error
+	if err != nil {
+		return nil, err
+	}
+	return &carousel, nil
 }
 
-func put(c *gin.Context) {
+func put(c *model.Carousel) (*model.Carousel, error) {
+	db, err := config.DB("mysql")
+	if err != nil {
+		return nil, err
+	}
+	db.AutoMigrate(c)
+	// carousel.Name =
+	err = db.Create(c).Error
+	if err != nil {
+		return nil, err
+	}
+	return c, err
+}
+
+// dlete page data Soft Delete
+func delete(uuid string) error {
 	var carousel model.Carousel
 	db, err := config.DB("mysql")
 	if err != nil {
-		c.JSON(c.Writer.Status(), gin.H{"errCode": "", "errInfo": fmt.Sprint("数据库初始化失败", err)})
-		return
+		return err
 	}
-	carousel.UUID = uuid.New().String() // c.Request.FormValue("c")
-	carousel.CaseUUID = c.Request.FormValue("case_uuid")
-	carousel.ClassUUID = c.Request.FormValue("class_uuid")
-	// carousel.Name =
-	db.Create(&carousel)
+	err = db.Where("uuid = ?", uuid).Delete(carousel).Error
+	return err
 }
 
-// Delete page data
-func Delete(c *gin.Context) {
-	// var carousel model.Carousel
+// update page data nothing will be updated as "", 0, false are blank values of their types
+func update(uuid string, car *model.Carousel) error {
+	var carousel model.Carousel
 	db, err := config.DB("mysql")
 	if err != nil {
-		c.JSON(c.Writer.Status(), gin.H{"errCode": "", "errInfo": fmt.Sprint("数据库初始化失败", err)})
-		return
+		return err
 	}
-	db.Where("uuid = ?", c.Request.FormValue("uuid")).Delete(&model.Carousel{})
-	c.JSON(c.Writer.Status(), gin.H{"errCode": "success", "uuid": c.Request.FormValue("uuid")})
+	err = db.Model(&carousel).Where("uuid = ?", uuid).Updates(car).Error
+	return err
 }
