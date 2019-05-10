@@ -7,19 +7,22 @@ import (
 )
 
 var (
-	aeskey = config.JWTAesKEY
+	jwtKey = config.JWTAesKey
 )
 
-// Check user auth
-func Check(c *gin.Context) (UserUUID string, err error) {
-	UserUUID, err = jwt.Chcek(c.ClientIP(), aeskey, c.GetHeader("iuu_token"))
+// Check 检测用户是否登陆
+func Check(c *gin.Context, ip string) (UserUUID string, err error) {
+	token, err := c.Cookie("iuu_token")
+	if err != nil {
+		return
+	}
+	UserUUID, err = jwt.Chcek(ip, jwtKey, token)
 	return
 }
 
-// Login user login
-func Login(c *gin.Context) (token string, err error) {
-	token, err = jwt.NewToken("uuid", "sub", "ip", aeskey, 60*30)
-	// c.SetCookie("iuu_token", token, 60*30, "/", c.Request.URL.Host, true, true)
+// NewToken 发放令牌
+func NewToken(c *gin.Context, uuid, sub, ip string) (token string, err error) {
+	token, err = jwt.NewToken(uuid, sub, ip, jwtKey, 60*30)
 	return
 }
 
@@ -36,4 +39,10 @@ func Renewal(c *gin.Context) (err error) {
 // Logout user states
 func Logout(c *gin.Context) {
 	c.SetCookie("iuu_token", "", -1, "/", c.Request.URL.Host, true, true)
+	successHandle(c, "ok")
+}
+
+func successHandle(c *gin.Context, info ...interface{}) {
+	c.JSON(c.Writer.Status(), gin.H{"errCode": "success", "info": info})
+	c.Abort()
 }

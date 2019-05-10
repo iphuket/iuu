@@ -3,6 +3,7 @@ package jwt
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -24,6 +25,8 @@ func NewToken(uuid, sub, ip, aeskey string, sec int64) (string, error) {
 	if err != nil {
 		return "aes error ", err
 	}
+	mip := jwt.MapClaims{"ip": enip}
+	fmt.Println("enip:", enip, "string:", mip["ip"])
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"uuid": enuuid,
 		"sub":  ensub,
@@ -42,12 +45,15 @@ func NewToken(uuid, sub, ip, aeskey string, sec int64) (string, error) {
 
 // CheckIP ip check
 func CheckIP(ip, aeskey string, Token *jwt.Token) (bool, error) {
-	if claims, ok := Token.Claims.(jwt.MapClaims); ok {
-		ip, err := crypto.EnSting([]byte(ip), []byte(aeskey))
-		if err != nil {
-			return false, err
-		}
-		if claims["ip"].(string) != string(ip) {
+	enip, err := crypto.EnSting([]byte(ip), []byte(aeskey))
+	if err != nil {
+		return false, err
+	}
+	claims, ok := Token.Claims.(jwt.MapClaims)
+	if ok {
+		cip := claims["ip"]
+		fmt.Println("enip:", cip, "string:", fmt.Sprint(enip))
+		if cip != nil {
 			return false, err
 		}
 		return true, nil
@@ -71,7 +77,7 @@ func Chcek(ip, aeskey, token string) (string, error) {
 		if bool {
 			return claims["uuid"].(string), nil
 		}
-		return "", errors.New("ip check Not pass")
+		return "", errors.New("ip check not pass")
 	}
 	return "", errors.New("claims exp, iat, nbf Not pass or ok")
 }

@@ -1,6 +1,8 @@
 package config
 
 const (
-	// JWTAesKEY jwt
-	JWTAesKEY string = "NI(2/sW+.1Ss"
+	// JWTAesKey jwt 32
+	JWTAesKey string = "DIQxHEGouXErEKKrC6KX1Mo2U7pNNv92"
+	// PasswdAesKey ... passwd crypto 32
+	PasswdAesKey string = "mn8Bs0aaxyHUXqWHDE9lPRt7T0JBEHNL"
 )
