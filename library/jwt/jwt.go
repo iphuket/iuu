@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/iphuket/iuu/library/crypto"
+	"github.com/iphuket/pkt/library/crypto"
 )
 
 // NewToken Generating token for users

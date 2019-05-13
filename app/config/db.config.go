@@ -3,8 +3,8 @@ package config
 import (
 	"fmt"
 
-	"github.com/iphuket/iuu/library/mysql"
-	"github.com/iphuket/iuu/library/sqlite3"
+	"github.com/iphuket/pkt/library/mysql"
+	"github.com/iphuket/pkt/library/sqlite3"
 	"github.com/jinzhu/gorm"
 )
 

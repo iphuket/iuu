@@ -2,8 +2,8 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iphuket/iuu/app/config"
-	"github.com/iphuket/iuu/library/jwt"
+	"github.com/iphuket/pkt/app/config"
+	"github.com/iphuket/pkt/library/jwt"
 )
 
 var (

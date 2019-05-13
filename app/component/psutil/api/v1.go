@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iphuket/iuu/app/component/psutil/cpu"
+	"github.com/iphuket/pkt/app/component/psutil/cpu"
 )
 
 // Route Settings

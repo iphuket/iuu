@@ -2,7 +2,7 @@ package psutil
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iphuket/iuu/app/component/psutil/api"
+	"github.com/iphuket/pkt/app/component/psutil/api"
 )
 
 // Route Init

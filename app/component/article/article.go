@@ -6,7 +6,7 @@ package article
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iphuket/iuu/app/component/article/api"
+	"github.com/iphuket/pkt/app/component/article/api"
 )
 
 // Route Init

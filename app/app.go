@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/iphuket/iuu/app/http"
+	"github.com/iphuket/pkt/app/http"
 )
 
 // Run app

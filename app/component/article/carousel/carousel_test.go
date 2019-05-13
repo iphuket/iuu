@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/iphuket/iuu/app/component/article/model"
+	"github.com/iphuket/pkt/app/component/article/model"
 )
 
 func TestGet(T *testing.T) {

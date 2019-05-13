@@ -1,10 +1,10 @@
 package http
 
 import (
-	"github.com/iphuket/iuu/app/admin"
-	"github.com/iphuket/iuu/app/component/article"
-	"github.com/iphuket/iuu/app/component/psutil"
-	"github.com/iphuket/iuu/server"
+	"github.com/iphuket/pkt/app/admin"
+	"github.com/iphuket/pkt/app/component/article"
+	"github.com/iphuket/pkt/app/component/psutil"
+	"github.com/iphuket/pkt/server"
 )
 
 var engine = server.New()

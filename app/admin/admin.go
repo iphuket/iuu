@@ -6,11 +6,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/iphuket/iuu/app/auth"
-	"github.com/iphuket/iuu/app/config"
-	"github.com/iphuket/iuu/library/crypto"
-	"github.com/iphuket/iuu/library/crypto/passwd"
-	"github.com/iphuket/iuu/server"
+	"github.com/iphuket/pkt/app/auth"
+	"github.com/iphuket/pkt/app/config"
+	"github.com/iphuket/pkt/library/crypto"
+	"github.com/iphuket/pkt/library/crypto/passwd"
+	"github.com/iphuket/pkt/server"
 )
 
 var (

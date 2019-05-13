@@ -7,12 +7,12 @@ package carousel
 import (
 	"fmt"
 
-	"github.com/iphuket/iuu/app/config"
+	"github.com/iphuket/pkt/app/config"
 
 	"github.com/google/uuid"
 
 	"github.com/gin-gonic/gin"
-	"github.com/iphuket/iuu/app/component/article/model"
+	"github.com/iphuket/pkt/app/component/article/model"
 )
 
 // Carousel page data

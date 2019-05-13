@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/iphuket/iuu"
+	"github.com/iphuket/pkt"
 )
 
 func main() {
-	iuu.IUU(":8866")
+	pkt.Run(":8866")
 }

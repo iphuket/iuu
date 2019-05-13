@@ -1,7 +1,7 @@
 package passwd
 
 import (
-	"github.com/iphuket/iuu/library/crypto"
+	"github.com/iphuket/pkt/library/crypto"
 )
 
 // New passwd

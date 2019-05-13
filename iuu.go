@@ -2,9 +2,9 @@
 package iuu
 
 import (
-	"github.com/iphuket/iuu/app"
+	"github.com/iphuket/pkt/app"
 )
-// IUU ...
-func IUU(port string) {
+// Run ...
+func Run(port string) {
 	app.Run(port)
 }
