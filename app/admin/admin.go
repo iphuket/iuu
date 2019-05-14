@@ -9,13 +9,13 @@ import (
 	"github.com/iphuket/pkt/app/auth"
 	"github.com/iphuket/pkt/app/config"
 	"github.com/iphuket/pkt/library/crypto"
-	"github.com/iphuket/pkt/library/crypto/passwd"
+	"github.com/iphuket/pkt/library/passwd"
 	"github.com/iphuket/pkt/server"
 )
 
 var (
-	jwtKey    = config.JWTAesKey
-	passwdKey = config.PasswdAesKey
+	jwtKey    = config.JWTSecret
+	passwdKey = config.PasswdSecret
 )
 
 // Login admin
@@ -46,13 +46,20 @@ func Login(c *gin.Context) {
 		return
 	}
 	// 验证完成 发出token
-	token, err := auth.NewToken(c, mu.UUID, "admin", server.RemoteIP(c.Request))
+	jp := auth.JWTPayload{
+		Issuer:   mu.Name,
+		Subject:  mu.Privilege,
+		Audience: mu.Audience,
+		UserID:   mu.UUID,
+		IP:       server.RemoteIP(c.Request),
+	}
+	token, err := auth.Token(c, jp)
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
 	}
-	c.SetCookie("iuu_token", token, 60*30, "/", "127.0.0.1", false, false)
-	successHandle(c, token)
+	c.SetCookie("token", string(token), 60*30, "/", "127.0.0.1", false, false)
+	successHandle(c, string(token))
 }
 
 // Logout admin

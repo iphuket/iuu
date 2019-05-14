@@ -6,8 +6,8 @@ import (
 )
 
 // New mysql
-func New(user, password, dbname string) (*gorm.DB, error) {
-	db, err := gorm.Open("mysql", user+":"+password+"@/"+dbname+"?charset=utf8&parseTime=True&loc=Local")
+func New(user, password, dbname, addr string) (*gorm.DB, error) {
+	db, err := gorm.Open("mysql", user+":"+password+"@tcp("+addr+")/"+dbname+"?charset=utf8&parseTime=True&loc=Local")
 	// defer db.Close()
 	return db, err
 }
