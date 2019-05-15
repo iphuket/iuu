@@ -49,7 +49,7 @@ func Login(c *gin.Context) {
 	jp := auth.JWTPayload{
 		Issuer:   mu.Name,
 		Subject:  mu.Privilege,
-		Audience: mu.Audience,
+		Audience: []string{mu.Audience},
 		UserID:   mu.UUID,
 		IP:       server.RemoteIP(c.Request),
 	}
@@ -58,7 +58,7 @@ func Login(c *gin.Context) {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
 	}
-	c.SetCookie("token", string(token), 60*30, "/", "127.0.0.1", false, false)
+	c.SetCookie("token", string(token), 60*30, "/", server.RemoteIP(c.Request), false, false)
 	successHandle(c, string(token))
 }
 

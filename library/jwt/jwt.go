@@ -10,14 +10,7 @@ import (
 // Payload jwt.Payload
 type Payload struct {
 	jwt.Payload
-	Issuer         string   // 发布者是谁
-	Subject        string   // 该JWT所面向的用户，用于处理特定应用，不是常用的字段
-	Audience       []string // 受众 []string //jwt.Audience{"https://minis.app"},
-	ExpirationTime int64    // 过期时间 now.Add(30 * time.Minute).Unix()
-	NotBefore      int64    // 生效时间 now.Add(30 * time.Minute).Unix(),
-	IssuedAt       int64    // 签发时间 now.Unix(),
-	JWTID          string   // jwt id 编号   // user_id 认证 (加密)
-	EnInfo         EnInfo   // 加密信息
+	EnInfo EnInfo // 加密信息
 }
 
 // EnInfo ... 加密的信息
@@ -27,21 +20,9 @@ type EnInfo struct {
 }
 
 // NewToken JWT 发放token
-func NewToken(pa Payload, secret string) (token []byte, err error) {
+func NewToken(p *Payload, secret string) (token []byte, err error) {
 	hs256 := jwt.NewHMAC(jwt.SHA256, []byte(secret))
 	h := jwt.Header{Algorithm: "hs256"}
-	p := Payload{
-		Payload: jwt.Payload{
-			Issuer:         pa.Issuer,
-			Subject:        pa.Subject,
-			Audience:       pa.Audience,
-			ExpirationTime: pa.ExpirationTime,
-			NotBefore:      pa.NotBefore, // now.Add(30 * time.Minute).Unix(),
-			IssuedAt:       pa.IssuedAt,
-			JWTID:          pa.JWTID,
-		},
-		EnInfo: pa.EnInfo,
-	}
 	token, err = jwt.Sign(h, p, hs256)
 	return
 }
@@ -71,8 +52,8 @@ func Chcek(secret, token string, audience ...string) (eninfo EnInfo, err error) 
 	}
 	iatValidator := jwt.IssuedAtValidator(now)
 	expValidator := jwt.ExpirationTimeValidator(now, true)
-	audValidator := jwt.AudienceValidator(audience)
-	err = p.Validate(iatValidator, expValidator, audValidator)
+	// audValidator := jwt.AudienceValidator(audience)
+	err = p.Validate(iatValidator, expValidator)
 	if err != nil {
 		return eninfo, err
 	}

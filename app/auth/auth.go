@@ -1,12 +1,14 @@
 package auth
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/iphuket/pkt/app/config"
 	"github.com/iphuket/pkt/library/crypto"
 	"github.com/iphuket/pkt/library/jwt"
+	"github.com/iphuket/pkt/server"
 )
 
 var (
@@ -20,8 +22,14 @@ func Check(c *gin.Context, nowip string) (userid string, err error) {
 	if err != nil {
 		return userid, err
 	}
-	eninfo, err := jwt.Chcek(secret, token, c.Request.Host)
-	userid = eninfo.UserID
+	eninfo, err := jwt.Chcek(secret, token, server.RemoteIP(c.Request))
+	if err != nil {
+		return userid, err
+	}
+	userid, err = crypto.DeCrypt(eninfo.UserID, []byte(secret))
+	if err != nil {
+		return userid, err
+	}
 	if len(nowip) > 0 {
 		lastip, err := crypto.DeCrypt(eninfo.IP, []byte(secret))
 		if err != nil {
@@ -53,20 +61,20 @@ func Token(c *gin.Context, jp JWTPayload) (token []byte, err error) {
 	if err != nil {
 		return token, err
 	}
-	pa := jwt.Payload{
-		Issuer:         jp.Issuer,
-		Subject:        jp.Subject,
-		Audience:       jp.Audience,
-		ExpirationTime: now.Add(time.Minute * 30).Unix(),
-		NotBefore:      now.Unix(),
-		IssuedAt:       now.Unix(),
-		JWTID:          "Non-existent",
-		EnInfo: jwt.EnInfo{
-			UserID: userid,
-			IP:     ip,
-		},
-	}
-	token, err = jwt.NewToken(pa, secret)
+	// pa := jwt.Payload{IssuedAt: "Ss"}
+
+	p := new(jwt.Payload)
+	p.Issuer = jp.Issuer
+	p.Subject = jp.Subject
+	p.Audience = jp.Audience
+	p.ExpirationTime = now.Add(time.Minute * 30).Unix()
+	p.NotBefore = now.Unix()
+	p.IssuedAt = now.Unix()
+	p.JWTID = "Non-existent"
+	p.EnInfo.UserID = userid
+	p.EnInfo.IP = ip
+	token, err = jwt.NewToken(p, secret)
+	fmt.Println(p)
 	return
 }
 
@@ -76,13 +84,14 @@ func Renewal(c *gin.Context) (err error) {
 	if err != nil {
 		return err
 	}
-	c.SetCookie("token", token, 60*30, "/", c.Request.URL.Host, true, true)
+	fmt.Println(server.RemoteIP(c.Request))
+	c.SetCookie("token", token, 60*30, "/", server.RemoteIP(c.Request), true, true)
 	return err
 }
 
 // Logout user states
 func Logout(c *gin.Context) {
-	c.SetCookie("iuu_token", "", -1, "/", c.Request.URL.Host, true, true)
+	c.SetCookie("token", "", -1, "/", server.RemoteIP(c.Request), true, true)
 	successHandle(c, "ok")
 }
 
