@@ -6,6 +6,5 @@ import (
 
 // Run app
 func Run(port string) {
-	http.Route()
 	http.Run(port)
 }

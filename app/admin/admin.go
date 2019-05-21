@@ -64,7 +64,7 @@ func Login(c *gin.Context) {
 
 // Logout admin
 func Logout(c *gin.Context) {
-	// 前后分离，前端清除cookie 即可
+	// 清除缓存
 	auth.Logout(c)
 }
 

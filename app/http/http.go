@@ -28,5 +28,6 @@ func Route() {
 
 // Run ... http
 func Run(addr string) {
+	Route()
 	engine.Run(addr)
 }

@@ -74,7 +74,6 @@ func Token(c *gin.Context, jp JWTPayload) (token []byte, err error) {
 	p.EnInfo.UserID = userid
 	p.EnInfo.IP = ip
 	token, err = jwt.NewToken(p, secret)
-	fmt.Println(p)
 	return
 }
 
@@ -85,14 +84,14 @@ func Renewal(c *gin.Context) (err error) {
 		return err
 	}
 	fmt.Println(server.RemoteIP(c.Request))
-	c.SetCookie("token", token, 60*30, "/", server.RemoteIP(c.Request), true, true)
+	c.SetCookie("token", token, 60*30, "/", server.RemoteIP(c.Request), false, false)
 	return err
 }
 
 // Logout user states
 func Logout(c *gin.Context) {
-	c.SetCookie("token", "", -1, "/", server.RemoteIP(c.Request), true, true)
-	successHandle(c, "ok")
+	c.SetCookie("token", "logout", -1, "/", server.RemoteIP(c.Request), false, false)
+	successHandle(c, "logout")
 }
 
 func successHandle(c *gin.Context, info ...interface{}) {
