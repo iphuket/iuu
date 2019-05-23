@@ -12,8 +12,11 @@ const (
 	sqlite3PATH = "./iuu.db"
 )
 
+// SQLDrive ...
+var drive = "mysql"
+
 // DB 配置函数
-func DB(drive string) (db *gorm.DB, err error) {
+func DB() (db *gorm.DB, err error) {
 	switch drive {
 	case "sqlite3":
 		db, err := sqlite3.New(sqlite3PATH)

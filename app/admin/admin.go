@@ -22,7 +22,7 @@ var (
 func Login(c *gin.Context) {
 	// 获取 email 查询sql 获得 code, passwd(MD5)->比对 passwd
 	email := c.Request.FormValue("email")
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
@@ -70,7 +70,7 @@ func Logout(c *gin.Context) {
 
 // Register admin 注册管理用户
 func Register(c *gin.Context) {
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
@@ -132,7 +132,7 @@ func StartResetPasswd(c *gin.Context) {
 	}
 	// update passwd and code
 	var mu ManageUser
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
@@ -154,7 +154,7 @@ func StartResetPasswd(c *gin.Context) {
 // verify 验证
 func verify(reMethod, vc, token string) error {
 	var mr ManageResets
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		return err
 	}

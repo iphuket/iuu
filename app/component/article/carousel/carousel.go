@@ -61,7 +61,7 @@ func Carousel(c *gin.Context) {
 
 func get(ClassUUID, CaseUUID string) (*[]model.Carousel, error) {
 	var carousel []model.Carousel
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func get(ClassUUID, CaseUUID string) (*[]model.Carousel, error) {
 }
 
 func put(c *model.Carousel) (*model.Carousel, error) {
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func put(c *model.Carousel) (*model.Carousel, error) {
 // dlete page data Soft Delete
 func delete(uuid string) error {
 	var carousel model.Carousel
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		return err
 	}
@@ -101,7 +101,7 @@ func delete(uuid string) error {
 // update page data nothing will be updated as "", 0, false are blank values of their types
 func update(uuid string, car *model.Carousel) error {
 	var carousel model.Carousel
-	db, err := config.DB("mysql")
+	db, err := config.DB()
 	if err != nil {
 		return err
 	}

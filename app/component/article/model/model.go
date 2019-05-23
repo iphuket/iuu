@@ -2,7 +2,6 @@ package model
 
 import (
 	"github.com/jinzhu/gorm"
-
 )
 
 // Carousel sql data struct
@@ -57,12 +56,12 @@ type Case struct {
 }
 
 func db() (*gorm.DB, error) {
-	return nil,nil
+	return nil, nil
 }
 
 // GetCase ...
 func GetCase(UserUUID string) (*Case, error) {
-	return nil,nil
+	return nil, nil
 }
 
 // GetClass ...
