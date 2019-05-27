@@ -10,6 +10,7 @@ var Engine = gin.Default()
 // init auto middleware
 func init() {
 	Engine.Use(server)
+	Engine.Use(gin.Recovery())
 	Engine.GET("remoteip", remoteIP)
 }
 

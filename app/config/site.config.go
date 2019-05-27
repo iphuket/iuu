@@ -2,6 +2,7 @@ package config
 
 // Addr Addr ...
 type Addr struct {
+	Domain string
 	Login  string
 	Logout string
 	Home   string
@@ -24,6 +25,7 @@ func SiteConfig() *Site {
 	*/
 	return &Site{
 		Addr{
+			Domain: "http://127.0.0.1",
 			Login:  "http://127.0.0.1/account/login",
 			Logout: "http://127.0.0.1/account/login",
 			Home:   "http://127.0.0.1/account/home",

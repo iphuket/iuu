@@ -123,9 +123,9 @@ func SendResetToken(c *gin.Context) {
 
 }
 
-// StartResetPasswd 开始密码重置 账户 接收 验证方法 method 内容 vc 令牌 token 密码 passwd
-func StartResetPasswd(c *gin.Context) {
-	err := verify(c.Request.FormValue("method"), c.Request.FormValue("vc"), c.Request.FormValue("token"))
+// Reset 开始密码重置 账户 接收 key：重置的对象(email,tel,username) | value：对象内容对应的内容 令牌 token 密码 passwd
+func Reset(c *gin.Context) {
+	err := verify(c.Request.FormValue("key"), c.Request.FormValue("value"), c.Request.FormValue("token"))
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
@@ -143,7 +143,7 @@ func StartResetPasswd(c *gin.Context) {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
 	}
-	err = db.Model(&mu).Where(c.Request.FormValue("method")+" = ?", c.Request.FormValue("vc")).Update(&ManageUser{Passwd: passwd, Code: code}).Error
+	err = db.Model(&mu).Where(c.Request.FormValue("key")+" = ?", c.Request.FormValue("value")).Update(&ManageUser{Passwd: passwd, Code: code}).Error
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
@@ -152,13 +152,13 @@ func StartResetPasswd(c *gin.Context) {
 }
 
 // verify 验证
-func verify(reMethod, vc, token string) error {
+func verify(key, value, token string) error {
 	var mr ManageResets
 	db, err := config.DB()
 	if err != nil {
 		return err
 	}
-	err = db.Where(reMethod+" = ?", vc).Find(&mr).Error
+	err = db.Where(key+" = ?", value).Find(&mr).Error
 	if err != nil {
 		return err
 	}

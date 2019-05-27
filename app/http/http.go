@@ -14,6 +14,9 @@ var engine = server.Engine
 
 // Route of all Settings
 func Route() {
+	{
+		shoturl.Route(engine)
+	}
 	art := engine.Group("article")
 	{
 		article.Route(art)
@@ -29,10 +32,6 @@ func Route() {
 	acc := engine.Group("account")
 	{
 		account.Route(acc)
-	}
-	stu := engine.Group("/")
-	{
-		shoturl.Route(stu)
 	}
 
 }

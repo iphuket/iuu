@@ -1,3 +1,8 @@
+// Package shoturl ...doc
+// domain/api/shoturl
+// fromdata:
+// ?do=create&source=要缩短的网址;
+// ?do=delete&str=要删除的短网址;
 package shoturl
 
 import (
@@ -17,9 +22,14 @@ import (
 )
 
 // Route Init
-func Route(r *gin.RouterGroup) {
-	r.Any("l/:str", lctr)
-	r.Any("m", mctr)
+func Route(en *gin.Engine) {
+	en.Any("l/:code", autoRedirect)
+	en.Any("api/shoturl", control)
+	st := en.Group("shoturl")
+	st.StaticFile("main", "./static/component/shoturl/main.html")
+	st.StaticFile("manage", "./static/component/shoturl/manage.html")
+	st.StaticFile("generate", "./static/component/shoturl/generate.html")
+
 }
 func authM(c *gin.Context) {
 	_, err := auth.Check(c, server.RemoteIP(c.Request))
@@ -33,28 +43,25 @@ func authM(c *gin.Context) {
 
 var domain = config.ShotURLDomain
 
-// lctr 永久短链接转换
-func lctr(c *gin.Context) {
+// autoRedirect Redirect
+func autoRedirect(c *gin.Context) {
 	db, err := config.DB()
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
 	}
 	var sURL ShotURL
-	// 查询emai
-	err = db.Where("str = ?", c.Param("str")).First(&sURL).Error
+	//
+	err = db.Where("code = ?", c.Param("code")).First(&sURL).Error
 	if err != nil {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
 	}
 	c.Redirect(307, sURL.Protocol+""+sURL.Source)
-	//successHandle(c)
 }
 
-// tctr 临时短链接
-func tctr(c *gin.Context) {
-}
-func mctr(c *gin.Context) {
+// 管理类型
+func control(c *gin.Context) {
 	do := c.Request.FormValue("do")
 	// 权限验证
 	userid, err := auth.Check(c, server.RemoteIP(c.Request))
@@ -70,6 +77,8 @@ func mctr(c *gin.Context) {
 		delete(c, userid)
 	}
 }
+
+// create 创建短网址
 func create(c *gin.Context, userid string) {
 
 	db, err := config.DB()
@@ -87,28 +96,29 @@ func create(c *gin.Context, userid string) {
 	sURL = ShotURL{
 		UUID:     uuid.New().String(),
 		UserUUID: userid,
-		Str:      romStr(int),
+		Code:     romStr(int),
 		Source:   c.Request.FormValue("source"),
-		Protocol: c.Request.FormValue("protocol"),
 	}
 	err = db.Create(&sURL).Error
 	if err != nil {
 		errorHandle(c, "db Create", fmt.Sprint(err))
 		return
 	}
-	successHandle(c, domain+"/l/"+sURL.Str)
+	successHandle(c, domain+""+sURL.Code)
 }
+
+// delete 删除短网址
 func delete(c *gin.Context, userid string) {
 	var sURL ShotURL
 	db, err := config.DB()
 	if err != nil {
 		errorHandle(c, "db con ", fmt.Sprint(err))
 	}
-	err = db.Where("key = ? AND user_uuid = ?", c.Param("str"), userid).Delete(sURL).Error
+	err = db.Where("code = ? AND user_uuid = ?", c.Param("code"), userid).Delete(sURL).Error
 	if err != nil {
 		errorHandle(c, "db where ", fmt.Sprint(err))
 	}
-	successHandle(c, "delete "+c.Param("str")+" success")
+	successHandle(c, "delete "+c.Param("code")+" success")
 }
 
 // 随机字符串 ...

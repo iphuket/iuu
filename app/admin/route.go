@@ -10,4 +10,5 @@ func Route(r *gin.RouterGroup) {
 	r.Any("register", Register)
 	r.Any("check", Check)
 	r.Any("logout", Logout)
+	r.Any("reset", Reset)
 }
