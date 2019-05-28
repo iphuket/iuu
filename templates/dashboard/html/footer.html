@@ -1,0 +1,46 @@
+{{ define "dashboard/html/footer.html" }}
+  <!-- footer strat --> 
+  <footer class="footer-content row  justify-content-between align-items-center">
+        <div class="col-sm-8"><a href="https://acad.taobao.com/" target="_blank" class="">佳悦书院</a></div>
+        <div class="col-sm-8 text-right"><a href="https://acad.taobao.com/" target="_blank" class="text-white">Privacy Policy</a> | <a href="https://acad.taobao.com/" target="_blank" class="text-white">Terms of use</a> </div>
+      </footer>
+    </div>
+    
+    <!-- search-block template start -->
+    {{ template "dashboard/html/search-block.html". }}
+    <!-- search-block template end -->
+    
+    <!-- sidebar-right start -->
+    {{ template "dashboard/html/sidebar-right.html". }}
+    <!-- sidebar-right end -->
+    
+    <!-- themepicker start -->
+    {{ template "dashboard/html/themepicker.html". }}
+    <!-- themepicker end --> 
+    
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    
+    <script src="https://static.iuu.pub/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script> 
+    
+    <script src="https://static.iuu.pub/vendor/bootstrap4beta/js/bootstrap.min.js" type="text/javascript"></script> 
+    
+    <!--Cookie js for theme chooser and applying it --> 
+    <script src="https://static.iuu.pub/vendor/cookie/jquery.cookie.js"  type="text/javascript"></script> 
+    
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> <script src="https://static.iuu.pub/js/ie10-viewport-bug-workaround.js"></script> 
+    
+    <!-- Circular chart progress js --> 
+    <script src="https://static.iuu.pub/vendor/cicular_progress/circle-progress.min.js" type="text/javascript"></script> 
+    
+    
+    <!--sparklines js--> 
+    <script type="text/javascript" src="https://static.iuu.pub/vendor/sparklines/jquery.sparkline.min.js"></script> 
+    
+    <!-- custome template js --> 
+    <script src="https://static.iuu.pub/js/adminux.js" type="text/javascript"></script>
+    </body>
+    </html>
+      <!-- footer end --> 
+    {{ end }}

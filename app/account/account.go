@@ -14,17 +14,20 @@ import (
 // Route account
 func Route(r *gin.RouterGroup) {
 	lr := r.Group("/")
-	lr.Use(account)
-	lr.StaticFile("login", "./static/page/account/login.html")
-	lr.StaticFile("register", "./static/page/account/register.html")
+	lr.Use(Account)
+	lr.StaticFile("login", "./templates/page/account/login.html")
+	lr.StaticFile("register", "./templates/page/account/register.html")
 
-	r.StaticFile("reset/main", "./static/page/account/reset/main.html")
-	r.StaticFile("reset/passwd", "./static/page/account/reset/passwd.html")
-	r.StaticFile("home", "./static/page/account/home.html")
+	r.GET("logout", auth.Logout)
+	r.StaticFile("reset/main", "./templates/page/account/reset/main.html")
+	r.StaticFile("reset/passwd", "./templates/page/account/reset/passwd.html")
+	r.StaticFile("home", "./templates/page/account/home.html")
 
-	// r.StaticFile("logout", "./static/page/account/logout.html").Use(account)
+	// r.StaticFile("logout", "./templates/page/account/logout.html").Use(account)
 }
-func account(c *gin.Context) {
+
+// Account M
+func Account(c *gin.Context) {
 	_, err := auth.Check(c, server.RemoteIP(c.Request))
 	if err != nil {
 		fmt.Println("account err: ", err)
@@ -35,7 +38,7 @@ func account(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	c.Redirect(307, config.SiteConfig().Home)
+	c.Redirect(307, config.SiteConfig().Domain)
 	c.Abort()
 	return
 }

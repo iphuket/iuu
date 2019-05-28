@@ -1,0 +1,24 @@
+{{ define "dashboard/html/sidebar-left.html" }}
+
+<div class="sidebar-left">
+    <div class="user-menu-items">
+      <div class="list-unstyled btn-group">
+        <button class="media btn btn-link dropdown-toggle"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="message_userpic"><img class="d-flex" src="https://static.iuu.pub/img/user-header.png" alt="Generic user image"></span> <span class="media-body"> <span class="mt-0 mb-1">Maxartkiller</span> <small>New Jersey, UK.</small> </span> </button>
+        <div class="dropdown-menu"> <a class="dropdown-item" href="customerprofile.html">Profile</a> <a class="dropdown-item" href="inbox.html">Mailbox</a> <a class="dropdown-item" href="#">Application</a> <a class="dropdown-item" href="#">Analytics Report</a> <a class="dropdown-item" href="#">Preferances</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Setting</a> </div>
+      </div>
+    </div>
+    <br>
+    <ul class="nav flex-column in" id="side-menu">
+      <li class="title-nav">菜单</li>
+      <li class="nav-item "> <a href="javascript:void(0)" class="menudropdown nav-link">仪表盘<i class="fa fa-angle-down "></i></a>
+        <ul class="nav flex-column nav-second-level ">
+          <li class=" nav-item "><a href="http://127.0.0.1/component/shoturl/main" class="nav-link active"><i class="fa fa-globe"></i>短网址</a></li>
+        </ul>
+    </li>
+    </ul>
+    <br>
+</div>
+
+{{ end }}

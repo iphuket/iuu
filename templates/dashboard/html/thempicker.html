@@ -1,0 +1,206 @@
+{{ define "dashboard/html/themepicker.html" }}
+
+<div class="modal fade" id="themepicker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Select your Preferances</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+        </div>
+        <div class="modal-body">
+          <table class="table color_pick_table mb-0">
+            <thead>
+              <tr>
+                <th class="p-0"></th>
+                <th class="p-0"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="">Fills</td>
+                <td>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#fullcolored" role="tab"><img src="https://static.iuu.pub/img/Layout_Fill_all.png" alt="" class="responsive-img"></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#headersidebarfill" role="tab"><img src="https://static.iuu.pub/img/Layout_Fill_side_header.png" alt="" class="responsive-img"></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sidebarfill" role="tab"><img src="https://static.iuu.pub/img/Layout_Fill_side.png" alt="" class="responsive-img"></a> </li>
+                      </ul>
+  
+                      <!-- Tab panes -->
+                      <div class="tab-content ">
+                          <div class="tab-pane active" id="fullcolored" role="tabpanel">
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens12.png" alt="" class="color_pick"><br><span>White</span></span> 
+                              </label>   
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="lightblue_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens14.png" alt="" class="color_pick"><br><span>Lightblue</span></span> 
+                              </label>   
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="dark_blue_adminux" name="color_pick" >
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens1.png" alt="" class="color_pick"><br><span>Dark Blue</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="dark_purple_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens7.png" alt="" class="color_pick"><br><span>Dark Purple</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="dark_red_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens8.png" alt="" class="color_pick"><br><span>Dark Red</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="dark_grey_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens9.png" alt="" class="color_pick"><br><span>Dark Grey</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="dark_green_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens10.png" alt="" class="color_pick"><br><span>Dark Green</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="dark_brown_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens11.png" alt="" class="color_pick"><br><span>Brown</span></span> 
+                              </label>                              
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="blue_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span>
+                                  <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens15.png" alt="" class="color_pick"><br><span>Blue</span></span> 
+                              </label>
+                          </div>
+                        <div class="tab-pane" id="headersidebarfill" role="tabpanel">
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="blue_header_sidebar_adminux" name="color_pick"  checked>
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens15.png" alt="" class="color_pick"><br>
+                                  <span>Blue</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+blue_header_sidebar_adminux" name="color_pick" >
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens1.png" alt="" class="color_pick"><br>
+                                  <span>Dark Blue</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+purple_header_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens7.png" alt="" class="color_pick"><br>
+                                  <span>Dark Purple</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+red_header_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens8.png" alt="" class="color_pick"><br>
+                                  <span>Dark Red</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+grey_header_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens9.png" alt="" class="color_pick"><br>
+                                  <span>Dark Grey</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+green_header_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens10.png" alt="" class="color_pick"><br>
+                                  <span>Dark Green</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+brown_header_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/2screens11.png" alt="" class="color_pick"><br>
+                                  <span>Brown</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens12.png" alt="" class="color_pick"><br>
+                                  <span>White</span></span> 
+                              </label> 
+                          
+                          </div>
+                          <div class="tab-pane" id="sidebarfill" role="tabpanel"> 
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="blue_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens15.png" alt="" class="color_pick"><br>
+                                  <span> Blue</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+blue_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens1.png" alt="" class="color_pick"><br>
+                                  <span>Dark Blue</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+purple_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens7.png" alt="" class="color_pick"><br>
+                                  <span>Dark Purple</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+red_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens8.png" alt="" class="color_pick"><br>
+                                  <span>Dark Red</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+grey_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens9.png" alt="" class="color_pick"><br>
+                                  <span>Dark Grey</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+green_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens10.png" alt="" class="color_pick"><br>
+                                  <span>Dark Green</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light+brown_sidebar_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/themes/3screens11.png" alt="" class="color_pick"><br>
+                                  <span>Brown</span></span> 
+                              </label>
+                              <label class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input select-color" data-color="light_adminux" name="color_pick">
+                                  <span class="custom-control-indicator"></span> <span class="custom-control-description"><img src="https://static.iuu.pub/img/screens12.png" alt="" class="color_pick"><br>
+                                  <span>White</span></span> 
+                              </label>
+                          </div>
+                      </div>
+  
+                    
+                    
+                  </td>
+              </tr>
+              <tr>
+                <td>Reading</td>
+                <td>
+                    <label class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input select-reading" name="read_style" data-reading="ltr-read" checked>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description"><img src="https://static.iuu.pub/img/Layout_LTR.png" alt="" class="color_pick"><br><span>Left to Right</span></span> 
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input select-reading" name="read_style" data-reading="rtl-read">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description"><img src="https://static.iuu.pub/img/Layout_RTL.png" alt="" class="color_pick"><br><span>Right to Left</span></span> 
+                    </label>
+                  </td>
+              </tr>
+              <tr>
+                <td>Display</td>
+                <td>
+                    <label class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input select-rounded" name="display_mode"  data-rounded="" checked>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description"><img src="https://static.iuu.pub/img/Layout_Flat_corner.png" alt="" class="color_pick"><br><span>Flat Corner</span></span> 
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input type="radio" class="custom-control-input select-rounded" data-rounded="rounded" name="display_mode">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description"><img src="https://static.iuu.pub/img/Layout_more_rounded.png" alt="" class="color_pick"><br><span>More Rounded</span></span> 
+                    </label>    
+                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
+
+{{ end }}

@@ -27,7 +27,7 @@ func SiteConfig() *Site {
 		Addr{
 			Domain: "http://127.0.0.1",
 			Login:  "http://127.0.0.1/account/login",
-			Logout: "http://127.0.0.1/account/login",
+			Logout: "http://127.0.0.1/account/logout",
 			Home:   "http://127.0.0.1/account/home",
 		},
 	}

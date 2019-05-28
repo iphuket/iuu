@@ -1,0 +1,32 @@
+{{ define "dashboard/html/head.html" }}
+<!DOCTYPE html>
+<html lang="{{ .lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="https://static.iuu.pub/favicon.ico">
+<title>{{ .title }}</title>
+<!-- Fontawesome icon CSS -->
+<link rel="stylesheet" href="https://static.iuu.pub/vendor/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://static.iuu.pub/vendor/bootstrap4beta/css/bootstrap.css" type="text/css">
+ <link rel="stylesheet" href="https://static.iuu.pub/css/dark_blue_adminux.css" type="text/css">
+</head>
+<body class="menuclose menuclose-right">
+<!-- page loader start -->
+{{ template "dashboard/html/loader.html". }}
+<!-- page loader end -->
+
+<!-- header template start -->
+{{ template "dashboard/html/header.html". }}
+<!-- header template end -->
+
+<!-- sidebar-left template start-->
+{{ template "dashboard/html/sidebar-left.html". }}
+<!-- sidebar-left  template end-->
+
+<div class="wrapper-content">
+{{ end }}

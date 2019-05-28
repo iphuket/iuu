@@ -15,7 +15,7 @@ var engine = server.Engine
 // Route of all Settings
 func Route() {
 	{
-		shoturl.Route(engine)
+		shoturl.Route(engine) // path use "/s"
 	}
 	art := engine.Group("article")
 	{

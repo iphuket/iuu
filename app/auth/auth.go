@@ -91,7 +91,9 @@ func Renewal(c *gin.Context) (err error) {
 // Logout user states
 func Logout(c *gin.Context) {
 	c.SetCookie("token", "logout", -1, "/", server.RemoteIP(c.Request), false, false)
-	successHandle(c, "logout")
+	//successHandle(c, "logout")
+	c.Redirect(307, config.SiteConfig().Login+"?co="+c.Request.URL.String())
+	c.Abort()
 }
 
 func successHandle(c *gin.Context, info ...interface{}) {

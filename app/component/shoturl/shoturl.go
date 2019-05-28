@@ -8,8 +8,11 @@ package shoturl
 import (
 	"fmt"
 	"math/rand"
+	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/iphuket/pkt/app/account"
 
 	"github.com/google/uuid"
 
@@ -23,18 +26,25 @@ import (
 
 // Route Init
 func Route(en *gin.Engine) {
-	en.Any("l/:code", autoRedirect)
-	en.Any("api/shoturl", control)
-	st := en.Group("shoturl")
-	st.StaticFile("main", "./static/component/shoturl/main.html")
-	st.StaticFile("manage", "./static/component/shoturl/manage.html")
-	st.StaticFile("generate", "./static/component/shoturl/generate.html")
+	en.Any("s/:code", autoRedirect)
+
+	en.LoadHTMLGlob("templates/**/*/*")
+	st := en.Group("component/shoturl")
+	st.Use(account.Account)
+	st.Any("api", control)
+	st.GET("main", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "component/shoturl/main.html", gin.H{
+			"lang":   "zh",
+			"title":  "短网址管理页",
+			"logout": config.SiteConfig().Logout + "?co=" + c.Request.URL.String(),
+		})
+	})
 
 }
 func authM(c *gin.Context) {
 	_, err := auth.Check(c, server.RemoteIP(c.Request))
 	if err != nil {
-		c.Redirect(307, config.SiteConfig().Login)
+		c.Redirect(307, config.SiteConfig().Login+"?co="+c.Request.URL.String())
 		c.Abort()
 		return
 	}
