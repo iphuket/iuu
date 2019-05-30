@@ -2,7 +2,6 @@ package http
 
 import (
 	"github.com/iphuket/pkt/app/account"
-	"github.com/iphuket/pkt/app/admin"
 	"github.com/iphuket/pkt/app/component/article"
 	"github.com/iphuket/pkt/app/component/psutil"
 	"github.com/iphuket/pkt/app/component/shoturl"
@@ -24,10 +23,6 @@ func Route() {
 	psu := engine.Group("psutil")
 	{
 		psutil.Route(psu)
-	}
-	adm := engine.Group("admin")
-	{
-		admin.Route(adm)
 	}
 	acc := engine.Group("account")
 	{

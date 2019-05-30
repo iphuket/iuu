@@ -50,7 +50,7 @@ type JWTPayload struct {
 	IP       string
 }
 
-// Token 发放令牌
+// Token 发放令牌 JWT
 func Token(c *gin.Context, jp JWTPayload) (token []byte, err error) {
 	now := time.Now()
 	userid, err := crypto.Encrypt([]byte(jp.UserID), []byte(secret))
@@ -91,8 +91,7 @@ func Renewal(c *gin.Context) (err error) {
 // Logout user states
 func Logout(c *gin.Context) {
 	c.SetCookie("token", "logout", -1, "/", server.RemoteIP(c.Request), false, false)
-	//successHandle(c, "logout")
-	c.Redirect(307, config.SiteConfig().Login+"?co="+c.Request.URL.String())
+	c.Redirect(307, config.SiteConfig().Login)
 	c.Abort()
 }
 

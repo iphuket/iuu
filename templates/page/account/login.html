@@ -1,12 +1,14 @@
+{{ define "page/account/login.html" }}
+
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="{{ .lang }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="https://static.iuu.pub/favicon.ico">
-<title>PKT 登录</title>
+<title>{{ .title }}</title>
 <!-- Fontawesome icon CSS -->
 <link rel="stylesheet" href="https://static.iuu.pub/vendor/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css">
 
@@ -94,15 +96,20 @@
        
             formData.append('email', email.value);
             formData.append('passwd', passwd.value);
-            fetch('http://127.0.0.1/admin/login', 
+            fetch('/account/login', 
                 {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
-                .then(response => console.log('Success:', JSON.stringify(response)))
+                .then(response => {
+                  console.log('Success:', JSON.stringify(response))
+                  if(JSON.stringify(response).href!="") window.location.href = JSON.stringify(response).href;
+                  
+                })
                 .catch(error => console.error('Error:', error));
             }
     </script>
 </body>
 </html>
+{{ end }}

@@ -1,12 +1,14 @@
+{{ define "page/account/register.html" }}
+
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="{{ .lang }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="https://static.iuu.pub/favicon.ico">
-<title>PKT 注册</title>
+<title>{{ .title }}</title>
 <!-- Fontawesome icon CSS -->
 <link rel="stylesheet" href="https://static.iuu.pub/vendor/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css">
 
@@ -106,7 +108,7 @@
               formData.append('nickname', nickname.value);
               formData.append('email', email.value);
               formData.append('passwd', passwdA.value);
-              fetch('http://127.0.0.1/admin/register', 
+              fetch('/account/register', 
                   {
                       method: 'POST',
                       body: formData
@@ -118,3 +120,4 @@
       </script>
 </body>
 </html>
+{{ end }}

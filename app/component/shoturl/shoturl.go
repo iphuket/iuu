@@ -12,8 +12,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/iphuket/pkt/app/account"
-
 	"github.com/google/uuid"
 
 	"github.com/iphuket/pkt/app/auth"
@@ -30,16 +28,21 @@ func Route(en *gin.Engine) {
 
 	en.LoadHTMLGlob("templates/**/*/*")
 	st := en.Group("component/shoturl")
-	st.Use(account.Account)
+	st.Use(authM)
 	st.Any("api", control)
-	st.GET("main", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "component/shoturl/main.html", gin.H{
-			"lang":   "zh",
-			"title":  "短网址管理页",
-			"logout": config.SiteConfig().Logout + "?co=" + c.Request.URL.String(),
-		})
-	})
+	st.GET("main", main)
 
+}
+func main(c *gin.Context) {
+	//c.Writer.WriteString("ok")
+	///*
+	c.HTML(http.StatusOK, "component/shoturl/main.html", gin.H{
+		"lang":   "zh",
+		"title":  "短网址管理页",
+		"logout": config.SiteConfig().Login,
+		"api":    gin.H{"create": "/component/shoturl/api?do=create", "delete": "/component/shoturl/api?do=delete"},
+	})
+	//*/
 }
 func authM(c *gin.Context) {
 	_, err := auth.Check(c, server.RemoteIP(c.Request))

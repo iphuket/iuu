@@ -59,12 +59,25 @@
                         let help = document.getElementById("help");
                             help.innerText="";
                         // 使用接口开始 生成短链接
+                        var formData = new FormData();
+       
+                        formData.append('email', email.value);
+                        formData.append('passwd', passwd.value);
+                        fetch('{{ .api.create }}', 
+                            {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(response => console.log('Success:', JSON.stringify(response)))
+                            .catch(error => console.error('Error:', error));
+                        }
                     }
 
-                  }
+                  
                   function isURL(str) {
                     return !! str.match(/(http|https):\/\/([\w.]+\/?)\S*/);
-                }
+                  }
               </script>
           </div>
         </div>

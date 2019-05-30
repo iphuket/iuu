@@ -1,3 +1,4 @@
+// Package admin 是 Package account 的依赖 //未来重构
 package admin
 
 import (
@@ -59,13 +60,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	c.SetCookie("token", string(token), 60*30, "/", server.RemoteIP(c.Request), false, false)
-	successHandle(c, string(token))
-}
-
-// Logout admin
-func Logout(c *gin.Context) {
-	// 清除缓存
-	auth.Logout(c)
+	successHandle(c, c.Request.FormValue("co"))
 }
 
 // Register admin 注册管理用户
@@ -151,7 +146,7 @@ func Reset(c *gin.Context) {
 	successHandle(c, "ok")
 }
 
-// verify 验证
+// verify 修改密码验证部分
 func verify(key, value, token string) error {
 	var mr ManageResets
 	db, err := config.DB()
