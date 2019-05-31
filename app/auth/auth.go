@@ -12,7 +12,8 @@ import (
 )
 
 var (
-	secret = config.JWTSecret
+	jwtSecret    = config.JWTSecret
+	passwdSecret = config.PasswdSecret
 )
 
 // Check 检测用户是否登陆 if len(nowip) > 0  check nowip == lasip 则验证通过
@@ -22,16 +23,16 @@ func Check(c *gin.Context, nowip string) (userid string, err error) {
 	if err != nil {
 		return userid, err
 	}
-	eninfo, err := jwt.Chcek(secret, token, server.RemoteIP(c.Request))
+	eninfo, err := jwt.Chcek(jwtSecret, token, server.RemoteIP(c.Request))
 	if err != nil {
 		return userid, err
 	}
-	userid, err = crypto.DeCrypt(eninfo.UserID, []byte(secret))
+	userid, err = crypto.DeCrypt(eninfo.UserID, []byte(jwtSecret))
 	if err != nil {
 		return userid, err
 	}
 	if len(nowip) > 0 {
-		lastip, err := crypto.DeCrypt(eninfo.IP, []byte(secret))
+		lastip, err := crypto.DeCrypt(eninfo.IP, []byte(jwtSecret))
 		if err != nil {
 			return userid, err
 		}
@@ -50,14 +51,14 @@ type JWTPayload struct {
 	IP       string
 }
 
-// Token 发放令牌 JWT
+// Token 登录后发放令牌 JWT
 func Token(c *gin.Context, jp JWTPayload) (token []byte, err error) {
 	now := time.Now()
-	userid, err := crypto.Encrypt([]byte(jp.UserID), []byte(secret))
+	userid, err := crypto.Encrypt([]byte(jp.UserID), []byte(jwtSecret))
 	if err != nil {
 		return token, err
 	}
-	ip, err := crypto.Encrypt([]byte(jp.IP), []byte(secret))
+	ip, err := crypto.Encrypt([]byte(jp.IP), []byte(jwtSecret))
 	if err != nil {
 		return token, err
 	}
@@ -73,7 +74,7 @@ func Token(c *gin.Context, jp JWTPayload) (token []byte, err error) {
 	p.JWTID = "Non-existent"
 	p.EnInfo.UserID = userid
 	p.EnInfo.IP = ip
-	token, err = jwt.NewToken(p, secret)
+	token, err = jwt.NewToken(p, jwtSecret)
 	return
 }
 
@@ -92,10 +93,5 @@ func Renewal(c *gin.Context) (err error) {
 func Logout(c *gin.Context) {
 	c.SetCookie("token", "logout", -1, "/", server.RemoteIP(c.Request), false, false)
 	c.Redirect(307, config.SiteConfig().Login)
-	c.Abort()
-}
-
-func successHandle(c *gin.Context, info ...interface{}) {
-	c.JSON(c.Writer.Status(), gin.H{"errCode": "success", "info": info})
 	c.Abort()
 }

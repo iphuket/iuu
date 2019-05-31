@@ -36,14 +36,30 @@
                                 <form>
                                     <div class="form-group">
                                     <label for="exampleInputEmail1"></label>
-                                    <input id="source"  type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="请输入带有http/https的链接">
+                                    <input id="source"  type="text" class="form-control" style="background-color: #e9ecef00;" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="请输入带有http/https的链接">
                                     <small id="help" class="form-text text-muted"></small>
                                     </div>
+                                    <form class="form-inline" style="display: block;">
+                                      <label class="sr-only" for="inlineFormInputGroup"></label>
+                                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <div class="input-group-addon">短网址：</div>
+                                        <input type="text" class="form-control" id="dwz" placeholder="" disabled="disabled" style="background-color: #e9ecef00;">
+                                      </div>
+                                    </form>
                                 </form>
-                                <button onclick="ok()" class="btn btn-primary">确认</button>
+                                <br>
+                                <button onclick="ok()" class="btn btn-primary" style="width: 100%;">生成</button>
                         </div>
                         <div class="tab-pane" id="hy" role="tabpanel">
-                                暂未开放
+                                <form class="form-inline" style="display: block;">
+                                  <label class="sr-only" for="inlineFormInputGroup"></label>
+                                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                    <div class="input-group-addon">https://u.iuu.pub/s/</div>
+                                    <input type="text" class="form-control" id="dwz" placeholder="请补全短网址最后的字符串" style="background-color: #e9ecef00;">
+                                  </div>
+                                </form>
+                                <br>
+                                <button onclick="up()" class="btn btn-primary" style="width: 100%;">查询</button>
                         </div>
                     </div>
                 
@@ -61,15 +77,22 @@
                         // 使用接口开始 生成短链接
                         var formData = new FormData();
        
-                        formData.append('email', email.value);
-                        formData.append('passwd', passwd.value);
+                        formData.append('source', source.value);
+                        formData.append('length', 5);
                         fetch('{{ .api.create }}', 
                             {
                                 method: 'POST',
                                 body: formData
                             })
                             .then(response => response.json())
-                            .then(response => console.log('Success:', JSON.stringify(response)))
+                            .then(response => {
+                              console.log('Success:', JSON.stringify(response))
+                              let help = document.getElementById("help");
+                                  help.innerText="";
+                              let dwz = document.getElementById("dwz");
+                                  dwz.style.display = "block";
+                                  dwz.value = response.info;
+                            })
                             .catch(error => console.error('Error:', error));
                         }
                     }

@@ -70,7 +70,7 @@ func autoRedirect(c *gin.Context) {
 		errorHandle(c, "error", fmt.Sprint(err))
 		return
 	}
-	c.Redirect(307, sURL.Protocol+""+sURL.Source)
+	c.Redirect(307, sURL.Source)
 }
 
 // 管理类型
@@ -103,7 +103,7 @@ func create(c *gin.Context, userid string) {
 	db.AutoMigrate(sURL)
 	int, err := strconv.Atoi(c.Request.FormValue("length"))
 	if err != nil {
-		errorHandle(c, "string to int error ", fmt.Sprint(err))
+		errorHandle(c, "not length value ", fmt.Sprint(err))
 		return
 	}
 	sURL = ShotURL{
@@ -117,7 +117,7 @@ func create(c *gin.Context, userid string) {
 		errorHandle(c, "db Create", fmt.Sprint(err))
 		return
 	}
-	successHandle(c, domain+""+sURL.Code)
+	successHandle(c, domain+"/s/"+sURL.Code)
 }
 
 // delete 删除短网址

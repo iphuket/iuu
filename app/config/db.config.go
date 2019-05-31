@@ -8,10 +8,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-const (
-	sqlite3PATH = "./iuu.db"
-)
-
 // SQLDrive ...
 var drive = "mysql"
 
@@ -19,7 +15,7 @@ var drive = "mysql"
 func DB() (db *gorm.DB, err error) {
 	switch drive {
 	case "sqlite3":
-		db, err := sqlite3.New(sqlite3PATH)
+		db, err := sqlite3.New("./sqlite3.db")
 		return db, err
 	case "mysql":
 		db, err := mysql.New("pkt", "pkt", "pkt", "127.0.0.1:3306")

@@ -4,8 +4,6 @@ package account
 import (
 	"net/http"
 
-	"github.com/iphuket/pkt/app/admin"
-
 	"github.com/iphuket/pkt/app/config"
 
 	"github.com/gin-gonic/gin"
@@ -53,7 +51,7 @@ func Login(c *gin.Context) {
 		})
 	}
 	if c.Request.Method == "POST" {
-		admin.Login(c)
+		auth.Login(c)
 	}
 }
 
@@ -68,7 +66,7 @@ func Register(c *gin.Context) {
 		})
 	}
 	if c.Request.Method == "POST" {
-		admin.Register(c)
+		auth.Register(c)
 	}
 }
 
